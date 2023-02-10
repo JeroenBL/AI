@@ -5,6 +5,10 @@
 
 GPT or `Generative Pretrained Transformer` is a type of artificial intelligence developed by OpenAI. It is capable of generating human-like text by predicting the next word in a sequence based on the input it has been trained on. GPT-3, in particular, is one of the largest and most advanced language models to date, with the ability to perform a wide range of tasks, such as translation, summarization, question-answering, and more.
 
+> :exclamation: Don't trust GPT. It's not that magical thing from the movies. The answers are biased and not always correct!
+
+> :exclamation: Don't trust code that GPT generates. Treat it the same as code from StackOverflow and proceed with caution
+
 ## Contents
 
 - [GPT (Generative Pre-trained Transformer)](#gpt-generative-pre-trained-transformer)
