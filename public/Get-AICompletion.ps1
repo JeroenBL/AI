@@ -14,10 +14,10 @@ function Get-AICompletion {
         Name of the model to use. The default model is set to 'text-davinci-003' which is GPT's most advanced model
 
         .PARAMETER Temperature
-        The temperature is used to control the model's likelihood to generate more creative answers. The default value is set to 0
+        The temperature controls the model's level of creativity when generating responses. A higher temperature value will result in the model generating more creative or diverse answers, while a lower temperature value will result in the model generating more conservative and predictable responses. The default temperature value is set to 0.
 
         .PARAMETER MaxTokens
-        The maximum number of tokens to generate. By default, this will be 64 if the prompt is not provided, and 1 if a prompt is provided. The maximum is 2048
+        The maximum number of tokens to generate. The default value is set to 256.
 
         .PARAMETER TopP
         Controls how many different words or phrases the language model considers when it’s trying to predict the next word. The default value is set to 0.

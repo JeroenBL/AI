@@ -216,8 +216,7 @@ Get-AICompletion -Prompt 'Return a list of 10 persons (in markdown) with the fol
 2. Go to: https://platform.openai.com/
 3. Click on: `Personal -> View API keys`
 4. Click on: `Create new secret key`
-5. Store your API key wherever you think it is safe.
-6. Store the API key in your registry using the following command:
+5. Store the API key in your registry using the following command:
 
 ```powershell
 $registryPath = 'HKCU:\SOFTWARE\AI'
