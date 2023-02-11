@@ -1,26 +1,30 @@
-# GPT (Generative Pre-trained Transformer)
+# AI
 
-> Hottest new programming language is: English <br> -- Andrej Karpathy (Director @ Tesla / OpenAI)
->
+<p align="left">
+  <img src="assets/logo.png" width="500">
+</p>
+
+ _The logo above is created by DALL-E. https://labs.openai.com/_
 
 GPT or `Generative Pretrained Transformer` is a type of artificial intelligence developed by OpenAI. It is capable of generating human-like text by predicting the next word in a sequence based on the input it has been trained on. GPT-3, in particular, is one of the largest and most advanced language models to date, with the ability to perform a wide range of tasks, such as translation, summarization, question-answering, and more.
 
-> :exclamation: Don't trust GPT. It's not that magical thing from the movies. The answers are biased and not always correct!
+> Hottest new programming language is: English <br> -- Andrej Karpathy (Director @ Tesla / OpenAI)
+>
 
 > :exclamation: Don't trust code that GPT generates. Treat it the same as code from StackOverflow and proceed with caution
 
 ## Contents
 
-- [GPT (Generative Pre-trained Transformer)](#gpt-generative-pre-trained-transformer)
+- [AI](#ai)
   - [Contents](#contents)
   - [Prompting](#prompting)
-  - [Costs](#costs)
     - [Example prompts:](#example-prompts)
       - [Behave as a PowerShell console](#behave-as-a-powershell-console)
-      - [Code reviewer](#code-reviewer)
+      - [Convert code to meet with community guidelines](#convert-code-to-meet-with-community-guidelines)
       - [Language translator](#language-translator)
+      - [PowerShell Q\&A expert](#powershell-qa-expert)
+      - [Add code comments](#add-code-comments)
   - [Models](#models)
-    - [GPT3 models](#gpt3-models)
   - [PowerShell module](#powershell-module)
     - [Available functions](#available-functions)
     - [Examples](#examples)
@@ -30,9 +34,10 @@ GPT or `Generative Pretrained Transformer` is a type of artificial intelligence 
       - [Write a regex matching an email address](#write-a-regex-matching-an-email-address)
       - [Write a SQL query](#write-a-sql-query)
       - [Write a MarkDown table containing person data](#write-a-markdown-table-containing-person-data)
+      - [Get a PowerShell code example on how create a user in AzureAD](#get-a-powershell-code-example-on-how-create-a-user-in-azuread)
     - [Installation](#installation)
+  - [Costs](#costs)
   - [Contributing](#contributing)
-
 
 ## Prompting
 
@@ -40,13 +45,9 @@ A GPT prompt is a text input that serves as a starting point for OpenAI's `Gener
 
 > :exclamation: Low quality `prompts` == low quality results
 
-## Costs
-
-OpenAI API's require payment. Upon creating an API key, new users receive a 18 dollar trial credit, which can be used to make API calls. The cost of API usage is calculated based on the number of tokens generated, with 1000 tokens equating to one cost unit. The number of tokens generated depends on the data sent to the API and the data received from it, and varies based on the model being used. More advanced models tend to be more expensive.
-
-For reference: I'm always using the `text-davinci-003` model. Which is the most expensive model. I have send over 500 requests to the API which costs approximately 0.50 dollars.
-
 ### Example prompts:
+
+> :exclamation: The prompts below are written for `ChatGPT`
 
 #### Behave as a PowerShell console
 
@@ -69,25 +70,61 @@ Mode                LastWriteTime         Length Name
 
 > :exclamation: You can also use SQL, Linux or whatever console you want
 
-#### Code reviewer
+#### Convert code to meet with community guidelines
 
-I want you to act as a code reviewer. I will provide you with some `{language}` code below, and you will do an in-depth review (line by line) - including pros, cons, bugs and improvements and possible ways to refactor the code if it contains repetitive code.
+![guidelines](assets/prompt-guidelines.png)
 
 #### Language translator
 
-I want you to act as an {language} translator, correct spelling and improve my text. You will translate my text, placed inside curly brackets, and answer in the corrected and improved version of my text in {language}. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level {language} words and sentences. Keep the meaning same, but make them more literary. I want you to only reply with the correction, improvements and nothing else. {text}
+I want you to act as an English translator, correct spelling and improve my text. You will translate my text, placed inside curly brackets, and answer in the corrected and improved version of my text in Dutch. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply with the correction, improvements and nothing else.
 
-```powershell
-'Het ID in Example is niet uniek. Wat ook betekent dat we niet voor de optie `Fire en forget` kunnen gaan, omdat er dan dubbele account worden aangemaakt. Dus een fatsoenlijke GET is wel van belang.' | ConvertTo-AnyLanguage -Language English
-
-# result:
-The ID in Example is not unique, which also means that we cannot opt for the 'Fire and Forget' option, as it would create duplicate accounts. Therefore, a proper GET is essential.
-PS C:\>
+```text
+{Dit is een demo met ChatGPT. Mijn test fol spelvouten wort netjes gremaakt en vertaald naar engels.}
 ```
 
-## Models
+![translator](assets/prompt-translator.png)
 
-### GPT3 models
+#### PowerShell Q&A expert
+
+I want you to act as a PowerShell expert. I will provide you with some PowerShell code below, and you will do an in-depth explanation.
+
+```powershell
+$arbeidsRelatieData = $arbeidsRelatieData | where-object {-not([String]::IsNullOrEmpty($_.hr2d__Employee__c))} | Sort-Object id -Unique
+
+$contractDelegate = [Func[object, object]] {
+    param ($contract) $contract.hr2d__Employee__c
+}
+$lookup = [Linq.Enumerable]::ToLookup($arbeidsRelatieData, $contractDelegate)
+```
+
+![explain](assets/prompt-explaincode.png)
+
+#### Add code comments
+
+```powershell
+$splatParams = @{
+    Uri     = 'https://api.openai.com/v1/completions'
+    Method  = 'POST'
+    Headers = @{
+        Authorization = "Bearer $((Get-ItemProperty 'HKCU:\SOFTWARE\AI\').APIKey)"
+    }
+    Body = @{
+        prompt      = $Prompt
+        model       = $Model
+        temperature = $Temperature
+        max_tokens  = $MaxTokens
+        top_p       = $TopP
+    } | ConvertTo-Json
+    ContentType = 'application/json'
+}
+$response = Invoke-RestMethod @splatParams
+```
+
+![comments](assets/prompt-codecomments.png)
+
+> :exclamation: For more awesome prompts, see: https://github.com/f/awesome-chatgpt-prompts
+
+## Models
 
 See: https://platform.openai.com/docs/models
 
@@ -95,6 +132,7 @@ See: https://platform.openai.com/docs/models
 
 | Version | Description | Date |
 | - | - | - |
+| 1.0.1 | Updated:<br> - readme - Added functions: `Get-PSCodeExample` and `Add-CodeComment` | 11-2-2023 |
 | 1.0.0 | Initial version | 10-2-2023 |
 
 ### Available functions
@@ -105,8 +143,9 @@ See: https://platform.openai.com/docs/models
 | ConvertTo-AnyLanguage | Translates text to any language |
 | ConvertTo-CSharp | Converts PowerShell code to CSharp |
 | ConvertTo-PowerShell | Converts code to PowerShell |
-| ConvertTo-MeetingSummary |  short descriptive notes to a summary |
+| ConvertTo-MeetingSummary | Converts short descriptive notes to a summary |
 | Get-AICompletion | Get a completion from the OpenAI GPT-3 API |
+| Get-PoshCodeExample | Gets a PowerShell code example based on the question you ask |
 
 ### Examples
 
@@ -210,6 +249,34 @@ Get-AICompletion -Prompt 'Return a list of 10 persons (in markdown) with the fol
 | 10 | Paul      | Anderson | panderson@example.com | Director of R&D |
 ```
 
+#### Get a PowerShell code example on how create a user in AzureAD
+
+```powershell
+Get-PSCodeExample -Question 'How to create a new user in Azure using the graph API?'
+
+# result:
+Creating a new user in Azure using the Graph API requires a few steps. First, you need to authenticate with the Azure Active Directory Graph API. You can do this using the `Connect-AzureAD` cmdlet.
+
+$credential = Get-Credential
+Connect-AzureAD -Credential $credential
+
+Once you have authenticated, you can use the `New-AzureADUser` cmdlet to create a new user. You can use splatting to pass in the parameters for the user.
+
+$userParams = @{
+    DisplayName = 'John Doe'
+    UserPrincipalName = 'john.doe@example.com'
+    AccountEnabled = $true
+    PasswordProfile = @{
+        Password = 'P@ssw0rd!'
+        ForceChangePasswordNextLogin = $false
+    }
+}
+
+New-AzureADUser @userParams
+
+Once the user has been created, you can use the `Get-AzureADUser` cmdlet to retrieve the user object.
+```
+
 ### Installation
 
 1. Create an account on: https://openai.com/api/
@@ -228,6 +295,12 @@ if (-not (Test-Path $registryPath)) {
 
 Set-ItemProperty -Path $registryPath -Name 'APIKey' -Value $apiKey
 ```
+
+## Costs
+
+OpenAI API's require payment. Upon creating an API key, new users receive a 18 dollar trial credit, which can be used to make API calls. The cost of API usage is calculated based on the number of tokens generated, with 1000 tokens equating to one cost unit. The number of tokens generated depends on the data sent to the API and the data received from it, and varies based on the model being used. More advanced models tend to be more expensive.
+
+For reference: I'm always using the `text-davinci-003` model. Which is the most expensive model. I have send over 500 requests to the API which costs approximately 0.50 dollars.
 
 ## Contributing
 

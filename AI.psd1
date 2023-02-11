@@ -5,7 +5,7 @@
     RootModule = '.\AI.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.0.0'
+    ModuleVersion = '1.0.1'
 
     # ID used to uniquely identify this module
     GUID = '8da02df8-2104-4070-8d42-f785e52329a7'

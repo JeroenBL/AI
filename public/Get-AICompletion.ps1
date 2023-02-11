@@ -23,7 +23,7 @@ function Get-AICompletion {
         Controls how many different words or phrases the language model considers when it’s trying to predict the next word. The default value is set to 0.
     #>
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, ValueFromPipeLine)]
         [string]
         $Prompt,
 
@@ -38,7 +38,6 @@ function Get-AICompletion {
         $Temperature = 0,
 
         [Parameter()]
-        [ValidateSet(0,2048)]
         [int]
         $MaxTokens = 256,
 
