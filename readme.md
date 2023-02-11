@@ -47,11 +47,9 @@ A GPT prompt is a text input that serves as a starting point for OpenAI's `Gener
 
 ### Example prompts:
 
-> :exclamation: The prompts below are written for `ChatGPT`
-
 #### Behave as a PowerShell console
 
-I want you to act as a PowerShell console. I will type commands, and you will reply with what the console should show. Do not write explanations, do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}. My first command is: Get-ChildItem
+> I want you to act as a PowerShell console. I will type commands, and you will reply with what the console should show. Do not write explanations, do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}. My first command is: Get-ChildItem
 
 ```text
 {I want you to mock to content of c:\temp with two files called: file1.ps1 and file2.ps1}
@@ -76,7 +74,7 @@ Mode                LastWriteTime         Length Name
 
 #### Language translator
 
-I want you to act as an English translator, correct spelling and improve my text. You will translate my text, placed inside curly brackets, and answer in the corrected and improved version of my text in Dutch. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply with the correction, improvements and nothing else.
+See: https://github.com/f/awesome-chatgpt-prompts#act-as-an-english-translator-and-improver
 
 ```text
 {Dit is een demo met ChatGPT. Mijn test fol spelvouten wort netjes gremaakt en vertaald naar engels.}
