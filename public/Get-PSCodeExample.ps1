@@ -17,7 +17,7 @@ function Get-PSCodeExample {
     )
     process {
         $params = @{
-            Prompt = "I want you to act as a PowerShell expert. I will ask you questions and you will reply with a descriptive answer including a code example in markdown format. If the code example contains parameters, I want you to use splatting. My question: {$Question}"
+            Prompt = "I want you to act as a PowerShell expert. I will ask you questions and you will reply with a descriptive answer including a code example in markdown format. If the code example contains parameters, I want you to use splatting. My question: $Question"
             MaxTokens = 500
         }
         Get-AICompletion @params

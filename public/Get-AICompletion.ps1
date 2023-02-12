@@ -2,10 +2,10 @@ function Get-AICompletion {
     [CmdletBinding()]
     <#
         .SYNOPSIS
-        Get a completion from the OpenAI GPT API
+        Returns a completion from the OpenAI API
 
         .DESCRIPTION
-        Given a prompt, GPT will return a predicted completion
+        Given a prompt, the OpenAI API will return a predicted completion
 
         .PARAMETER Prompt
         The prompt to generate a completion for
@@ -38,6 +38,7 @@ function Get-AICompletion {
         $Temperature = 0,
 
         [Parameter()]
+        [ValidateSet(0,2048)]
         [int]
         $MaxTokens = 256,
 
