@@ -33,34 +33,35 @@ function Get-AICompletion {
         $Model = 'text-davinci-003',
 
         [Parameter()]
-        [ValidateSet(0,1)]
+        [ValidateSet(0, 1)]
         [int]
         $Temperature = 0,
 
         [Parameter()]
-        [ValidateSet(0,2048)]
         [int]
         $MaxTokens = 256,
 
         [Parameter()]
-        [ValidateSet(0,1)]
+        [ValidateSet(0, 1)]
         [int]
         $TopP = 0
     )
     try {
+        $body = @{
+            prompt      = $Prompt
+            model       = $Model
+            temperature = $Temperature
+            max_tokens  = $MaxTokens
+            top_p       = $TopP
+        } | ConvertTo-Json
+
         $splatParams = @{
             Uri     = 'https://api.openai.com/v1/completions'
             Method  = 'POST'
             Headers = @{
                 Authorization = "Bearer $((Get-ItemProperty 'HKCU:\SOFTWARE\AI\').APIKey)"
             }
-            Body = @{
-                prompt      = $Prompt
-                model       = $Model
-                temperature = $Temperature
-                max_tokens  = $MaxTokens
-                top_p       = $TopP
-            } | ConvertTo-Json
+            Body = [System.Text.Encoding]::UTF8.GetBytes($body)
             ContentType = 'application/json'
         }
         $response = Invoke-RestMethod @splatParams
@@ -69,3 +70,5 @@ function Get-AICompletion {
         $PSCmdlet.ThrowTerminatingError($_)
     }
 }
+
+
