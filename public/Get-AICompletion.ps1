@@ -14,13 +14,13 @@ function Get-AICompletion {
         Name of the model to use. The default model is set to 'text-davinci-003' which is GPT's most advanced model
 
         .PARAMETER Temperature
-        The temperature controls the model's level of creativity when generating responses. A higher temperature value will result in the model generating more creative or diverse answers, while a lower temperature value will result in the model generating more conservative and predictable responses. The default temperature value is set to 0.
+        Controls the randomness of the generated text. 0 means more strict, 1 more creative. The default value is set to: 0
 
         .PARAMETER MaxTokens
         The maximum number of tokens to generate. The default value is set to 256.
 
         .PARAMETER TopP
-        Controls how many different words or phrases the language model considers when it’s trying to predict the next word. The default value is set to 0.
+        Controls how many different words or phrases the language model considers when it's trying to predict the next word. The default value is set to: 0
     #>
     param (
         [Parameter(Mandatory, ValueFromPipeLine)]
@@ -33,7 +33,6 @@ function Get-AICompletion {
         $Model = 'text-davinci-003',
 
         [Parameter()]
-        [ValidateSet(0, 1)]
         [int]
         $Temperature = 0,
 
@@ -42,7 +41,6 @@ function Get-AICompletion {
         $MaxTokens = 256,
 
         [Parameter()]
-        [ValidateSet(0, 1)]
         [int]
         $TopP = 0
     )
